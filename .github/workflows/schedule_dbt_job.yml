@@ -1,36 +1,35 @@
 name: schedule_dbt_job
 
-   on:
-   pull_request:
-       branches:
-       # run on push to development branch
-       - development
-   env:
-   DBT_PROFILES_DIR: ./
+on:
+  pull_request:
+    branches:
+      - dev
 
-   DBT_SNOWFLAKE_USERNAME: Meenachi
-   DBT_SNOWFLAKE_PW: Snowflake@123
-   DBT_SNOWFLAKE_ROLE: ACCOUNTADMIN
-  
+env:
+  DBT_PROFILES_DIR: ./
+  DBT_SNOWFLAKE_USERNAME: Meenachi
+  DBT_SNOWFLAKE_PW: Snowflake@123
+  DBT_SNOWFLAKE_ROLE: ACCOUNTADMIN
 
-   jobs:
-   schedule_dbt_job:
-       name: schedule_dbt_job
-       runs-on: windows-latest
+jobs:
+  schedule_dbt_job:
+    name: schedule_dbt_job
+    runs-on: windows-latest
 
-       steps:       
-       - uses: actions/setup-python@v1
-           with:
-           python-version: "3.9.x"
+    steps:
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: "3.9.x"
 
-       - name: Install dependencies
-           run: |
-           pip install dbt
-           dbt deps
+    - name: Install dependencies
+      run: |
+        pip install dbt
+        dbt deps
 
-       # dbt related commands here - run use --target prod/dev to run for specific environments
-       - name: Run dbt models
-           run: dbt run
+    # dbt related commands here - run use --target prod/dev to run for specific environments
+    - name: Run dbt models
+      run: dbt run
 
-       - name: Test dbt models
-           run: dbt test
+    - name: Test dbt models
+      run: dbt test
