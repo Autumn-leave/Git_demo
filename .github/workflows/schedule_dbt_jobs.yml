@@ -1,9 +1,6 @@
 name: schedule_dbt_job
 
-on:
-  pull_request:
-    branches:
-      - dev
+on:pull_request
 
 env:
   DBT_PROFILES_DIR: ./
