@@ -3,7 +3,7 @@ name: schedule_dbt_job
 on:
   pull_request:
     branches:
-      - development
+      - dev
 
 env:
   DBT_PROFILES_DIR: ./
